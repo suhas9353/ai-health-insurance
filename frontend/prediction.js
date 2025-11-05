@@ -1,7 +1,7 @@
 // prediction.js
 // Use local Flask backend or deployed API endpoint
 // Example: 'http://127.0.0.1:5000' for local testing, or your Render/Railway URL for live use.
-const API_BASE = 'https://<your-render-service>.onrender.com';
+const API_BASE = 'https://ai-health-insurance.onrender.com';
 
 
 // Utility function to update UI text
