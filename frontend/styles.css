@@ -30,14 +30,6 @@ form {
 
 .row {
   margin-bottom: 1rem;
-  text-align: left;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.3rem;
-  font-weight: 600;
-  color: #004d40;
 }
 
 input, select {

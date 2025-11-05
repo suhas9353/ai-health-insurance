@@ -13,29 +13,15 @@
   </header>
 
   <main class="container">
+    <!-- Health and Insurance Form -->
     <section id="form-section">
       <h2>Enter Your Details</h2>
       <form id="userForm">
-        <div class="row">
-          <label for="age">Age:</label>
-          <input id="age" type="number" placeholder="Age" required>
-        </div>
-        <div class="row">
-          <label for="height">Height (cm):</label>
-          <input id="height" type="number" placeholder="Height (cm)" required>
-        </div>
-        <div class="row">
-          <label for="weight">Weight (kg):</label>
-          <input id="weight" type="number" placeholder="Weight (kg)" required>
-        </div>
-        <div class="row">
-          <label for="systolic">Systolic BP:</label>
-          <input id="systolic" type="number" placeholder="Systolic BP" required>
-        </div>
-        <div class="row">
-          <label for="diastolic">Diastolic BP:</label>
-          <input id="diastolic" type="number" placeholder="Diastolic BP" required>
-        </div>
+        <div class="row"><input id="age" type="number" placeholder="Age" required></div>
+        <div class="row"><input id="height" type="number" placeholder="Height (cm)" required></div>
+        <div class="row"><input id="weight" type="number" placeholder="Weight (kg)" required></div>
+        <div class="row"><input id="systolic" type="number" placeholder="Systolic BP" required></div>
+        <div class="row"><input id="diastolic" type="number" placeholder="Diastolic BP" required></div>
         <div class="row">
           <label for="smoking">Smoking:</label>
           <select id="smoking" required>
@@ -43,10 +29,7 @@
             <option value="1">Yes</option>
           </select>
         </div>
-        <div class="row">
-          <label for="claims">Past Insurance Claims:</label>
-          <input id="claims" type="number" placeholder="Number of past claims" value="0" required>
-        </div>
+        <div class="row"><input id="claims" type="number" placeholder="Past Insurance Claims" value="0" required></div>
         <button type="submit" class="btn">Predict</button>
       </form>
 

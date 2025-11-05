@@ -1,12 +1,15 @@
 // prediction.js
-// Connects form to Flask backend and displays predictions instantly
+// Use local Flask backend or deployed API endpoint
+// Example: 'http://127.0.0.1:5000' for local testing, or your Render/Railway URL for live use.
+const API_BASE = 'https://<your-render-service>.onrender.com';
 
-const API_BASE = 'http://127.0.0.1:5000'; // Local backend for testing
 
+// Utility function to update UI text
 function show(id, text) {
   document.getElementById(id).innerText = text;
 }
 
+// Handle unified form submission
 document.getElementById('userForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -20,11 +23,12 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
     PastClaims: Number(document.getElementById('claims').value)
   };
 
+  // Reset UI
   show('healthResult', '⏳ Predicting health risk...');
   show('insResult', '⏳ Estimating insurance premium...');
 
   try {
-    // Health prediction
+    // --- 1️⃣ HEALTH PREDICTION ---
     const healthRes = await fetch(`${API_BASE}/predict_health`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -39,7 +43,7 @@ document.getElementById('userForm').addEventListener('submit', async (e) => {
 
     show('healthResult', `Prediction: ${riskLabel}\nProbability: ${prob}%`);
 
-    // Insurance prediction
+    // --- 2️⃣ INSURANCE PREDICTION ---
     const BMI = payload.WeightKg / ((payload.HeightCm / 100) ** 2);
     const insRes = await fetch(`${API_BASE}/predict_insurance`, {
       method: 'POST',
