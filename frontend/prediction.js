@@ -1,69 +1,57 @@
-// prediction.js
-// Use local Flask backend or deployed API endpoint
-// Example: 'http://127.0.0.1:5000' for local testing, or your Render/Railway URL for live use.
-const API_BASE = 'https://ai-health-insurance.onrender.com';
+const API_BASE = 'https://ai-health-insurance.onrender.com'; // your Render backend
 
-
-// Utility function to update UI text
-function show(id, text) {
-  document.getElementById(id).innerText = text;
-}
-
-// Handle unified form submission
 document.getElementById('userForm').addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const payload = {
     Age: Number(document.getElementById('age').value),
+    Gender: Number(document.getElementById('gender').value),
     HeightCm: Number(document.getElementById('height').value),
     WeightKg: Number(document.getElementById('weight').value),
     SystolicBP: Number(document.getElementById('systolic').value),
     DiastolicBP: Number(document.getElementById('diastolic').value),
     Smoking: Number(document.getElementById('smoking').value),
+    Alcohol: Number(document.getElementById('alcohol').value),
+    Exercise: Number(document.getElementById('exercise').value),
+    Diet: Number(document.getElementById('diet').value),
+    Stress: Number(document.getElementById('stress').value),
     PastClaims: Number(document.getElementById('claims').value)
   };
 
-  // Reset UI
-  show('healthResult', '⏳ Predicting health risk...');
-  show('insResult', '⏳ Estimating insurance premium...');
+  document.getElementById('healthResult').innerText = "⏳ Calculating health risk...";
+  document.getElementById('insResult').innerText = "⏳ Estimating premium...";
 
   try {
-    // --- 1️⃣ HEALTH PREDICTION ---
-    const healthRes = await fetch(`${API_BASE}/predict_health`, {
+    const res = await fetch(`${API_BASE}/predict_health`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
     });
-    const healthData = await healthRes.json();
+    const health = await res.json();
 
-    if (healthData.error) throw new Error(healthData.error);
+    document.getElementById('healthResult').innerText = `
+🧠 Health Risk Analysis:
+Risk: ${health.risk_category}
+Probability: ${(health.probability * 100).toFixed(1)}%
+Recommendation: ${health.recommendation}
+Lifestyle Tips: ${health.tips}
+    `;
 
-    const riskLabel = healthData.prediction === 1 ? '⚠️ High Risk' : '✅ Low Risk';
-    const prob = (healthData.probability * 100).toFixed(2);
-
-    show('healthResult', `Prediction: ${riskLabel}\nProbability: ${prob}%`);
-
-    // --- 2️⃣ INSURANCE PREDICTION ---
-    const BMI = payload.WeightKg / ((payload.HeightCm / 100) ** 2);
-    const insRes = await fetch(`${API_BASE}/predict_insurance`, {
+    const ins = await fetch(`${API_BASE}/predict_insurance`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        Age: payload.Age,
-        BMI: BMI,
-        Smoking: payload.Smoking,
-        PastClaims: payload.PastClaims
-      })
+      body: JSON.stringify(payload)
     });
-    const insData = await insRes.json();
+    const insurance = await ins.json();
 
-    if (insData.error) throw new Error(insData.error);
-
-    const premium = insData.estimated_premium.toFixed(2);
-    show('insResult', `💰 Estimated Premium: ₹${premium}`);
-
+    document.getElementById('insResult').innerText = `
+💰 Insurance Premium Estimate:
+Estimated Premium: ₹${insurance.estimated_premium}
+Range: ₹${insurance.confidence_range[0]} - ₹${insurance.confidence_range[1]}
+Plan Tier: ${insurance.premium_tier}
+Note: ${insurance.note}
+    `;
   } catch (err) {
-    show('healthResult', `❌ Error: ${err.message}`);
-    show('insResult', `❌ Unable to get predictions`);
+    document.getElementById('healthResult').innerText = "❌ Error: " + err.message;
   }
 });

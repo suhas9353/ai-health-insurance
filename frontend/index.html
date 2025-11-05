@@ -15,31 +15,62 @@
   <main class="container">
     <!-- Health and Insurance Form -->
     <section id="form-section">
-      <h2>Enter Your Details</h2>
-      <form id="userForm">
-        <div class="row"><input id="age" type="number" placeholder="Age" required></div>
-        <div class="row"><input id="height" type="number" placeholder="Height (cm)" required></div>
-        <div class="row"><input id="weight" type="number" placeholder="Weight (kg)" required></div>
-        <div class="row"><input id="systolic" type="number" placeholder="Systolic BP" required></div>
-        <div class="row"><input id="diastolic" type="number" placeholder="Diastolic BP" required></div>
-        <div class="row">
-          <label for="smoking">Smoking:</label>
-          <select id="smoking" required>
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-          </select>
-        </div>
-        <div class="row"><input id="claims" type="number" placeholder="Past Insurance Claims" value="0" required></div>
-        <button type="submit" class="btn">Predict</button>
-      </form>
+  <h2>Enter Your Health & Lifestyle Details</h2>
+  <form id="userForm">
+    <div class="row"><label>Age:</label><input id="age" type="number" required></div>
+    <div class="row"><label>Gender:</label>
+      <select id="gender">
+        <option value="0">Male</option>
+        <option value="1">Female</option>
+      </select>
+    </div>
+    <div class="row"><label>Height (cm):</label><input id="height" type="number" required></div>
+    <div class="row"><label>Weight (kg):</label><input id="weight" type="number" required></div>
+    <div class="row"><label>Systolic BP:</label><input id="systolic" type="number" required></div>
+    <div class="row"><label>Diastolic BP:</label><input id="diastolic" type="number" required></div>
+    <div class="row"><label>Smoking:</label>
+      <select id="smoking">
+        <option value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+    </div>
+    <div class="row"><label>Alcohol Consumption:</label>
+      <select id="alcohol">
+        <option value="0">Never</option>
+        <option value="1">Occasionally</option>
+        <option value="2">Regularly</option>
+      </select>
+    </div>
+    <div class="row"><label>Exercise Frequency (days/week):</label>
+      <input id="exercise" type="number" min="0" max="7" required>
+    </div>
+    <div class="row"><label>Diet Quality:</label>
+      <select id="diet">
+        <option value="0">Poor</option>
+        <option value="1">Average</option>
+        <option value="2">Healthy</option>
+      </select>
+    </div>
+    <div class="row"><label>Stress Level:</label>
+      <select id="stress">
+        <option value="0">Low</option>
+        <option value="1">Moderate</option>
+        <option value="2">High</option>
+      </select>
+    </div>
+    <div class="row"><label>Past Insurance Claims:</label><input id="claims" type="number" required></div>
 
-      <div id="results">
-        <h3>🧠 Health Prediction</h3>
-        <pre id="healthResult">Result will appear here...</pre>
-        <h3>💰 Insurance Premium Prediction</h3>
-        <pre id="insResult">Result will appear here...</pre>
-      </div>
-    </section>
+    <button type="submit" class="btn">Predict</button>
+  </form>
+
+  <div id="results">
+    <h3>🧠 Health Risk Analysis</h3>
+    <pre id="healthResult">Result will appear here...</pre>
+    <h3>💰 Insurance Premium Estimate</h3>
+    <pre id="insResult">Result will appear here...</pre>
+  </div>
+</section>
+
   </main>
 
   <footer>
